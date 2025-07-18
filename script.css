@@ -1,88 +1,126 @@
+/* Global Settings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(to right, #4CAF50, #2196F3);
+  font-family: "Montserrat", sans-serif;
+  background: linear-gradient(135deg, #2980b9, #6dd5fa);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 .container {
-    text-align: center;
+  max-width: 400px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 25px 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 .weather-card {
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-    width: 450px;
+  text-align: center;
 }
 
-.weather-card:hover {
-    transform: scale(1.05);
+.weather-card h1 {
+  font-size: 24px;
+  color: #3498db;
+  margin-bottom: 15px;
 }
 
-#city-input {
-    padding: 15px;
-    margin: 10px 0;
-    width: 70%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+input#city-input {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
 }
 
-#city-input:focus {
-    outline: none;
-    border-color: #2196F3;
+input#city-input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
 
-#city-input::placeholder {
-    color: #aaa;
+button#search-btn {
+  width: 100%;
+  padding: 10px 15px;
+  background: #2ecc71;
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
 }
 
-#city-input-btn {
-    padding: 10px;
-    background-color: #2196F3;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
+button#search-btn:hover {
+  background: #27ae60;
 }
 
-#city-input-btn:hover {
-    background-color: #1565C0;
+#location-note {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
 }
 
+/* Weather Info */
 #weather-info {
-    display: none;
+  margin-top: 20px;
 }
 
-#weather-icon {
-    width: 100px;
-    height: 100px;
+#weather-info h2 {
+  font-size: 20px;
+  color: #2c3e50;
+  margin-bottom: 10px;
 }
 
-#temperature {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 8px 0;
+#weather-info p {
+  font-size: 14px;
+  margin: 5px 0;
+  color: #444;
 }
 
-#description {
-    font-size: 18px;
-    margin-bottom: 10px;
+#weather-info img {
+  width: 70px;
+  height: 70px;
 }
 
-#wind-speed {
-    font-size: 16px;
-    color: rgb(255, 0, 0);
+/* Forecast Chart */
+canvas#forecast-chart {
+  margin-top: 20px;
+  max-width: 100%;
+  border-radius: 10px;
 }
 
-#date {
-    font-size: 14px;
-    color: rgb(255, 0, 0);
+/* Map Box */
+#map {
+  height: 300px;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 15px 10px;
+  }
+
+  #map {
+    height: 250px;
+  }
+
+  canvas#forecast-chart {
+    height: 200px !important;
+  }
 }
