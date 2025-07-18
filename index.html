@@ -3,40 +3,215 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Somesh Singh Weather Application</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <title>Final Year Weather App</title>
 
-  <!-- Cloud Decorations -->
+  <!-- Leaflet + ChartJS CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- 🔹 Embedded CSS -->
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+      transition: background 1s ease-in-out;
+    }
+    .cloud {
+      position: absolute;
+      width: 200px; height: 60px;
+      background: #fff; border-radius: 50%;
+      opacity: 0.4; animation: floatCloud 30s linear infinite;
+      z-index: 1;
+    }
+    @keyframes floatCloud {
+      0% { left: -250px; }
+      100% { left: 100%; }
+    }
+    .container {
+      max-width: 400px; width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 25px 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      z-index: 2; text-align: center;
+    }
+    .weather-card h1 {
+      font-size: 26px; color: #3498db; margin-bottom: 20px;
+    }
+    .search-box {
+      display: flex; flex-direction: column; align-items: center; margin-bottom: 10px;
+    }
+    .search-box input, .search-box button {
+      width: 90%; padding: 10px; margin: 5px 0;
+      border-radius: 8px; border: 1px solid #ccc;
+      text-align: center;
+    }
+    .search-box button {
+      background: #2ecc71; color: white; font-size: 15px;
+      cursor: pointer; border: none;
+    }
+    .search-box button:hover { background: #27ae60; }
+    #location-note { font-size: 12px; color: gray; margin-top: 5px; }
+    #weather-info { margin-top: 20px; }
+    #weather-info h2 { font-size: 20px; color: #2c3e50; margin-bottom: 10px; }
+    #weather-info p { font-size: 14px; margin: 5px 0; color: #444; }
+    #weather-info img { width: 70px; height: 70px; }
+    #forecast-chart { margin-top: 20px; width: 100% !important; }
+    #map { height: 300px; width: 100%; margin-top: 20px; border-radius: 10px; border: 1px solid #ccc; }
+    footer {
+      text-align: center; margin-top: 30px; padding: 10px;
+      font-size: 14px; color: #555;
+      background: rgba(255, 255, 255, 0.1);
+      border-top: 1px solid #ddd;
+      border-radius: 0 0 15px 15px; width: 100%; z-index: 2;
+    }
+  </style>
+</head>
+
+<body>
   <div class="cloud" style="top: 80px;"></div>
   <div class="cloud" style="top: 150px;"></div>
 
-  <!-- App UI -->
- <div class="weather-card">
-  <h1><aign_CENTER>🌦️ Weather Application</aign_CENTER></h1>
+  <div class="container">
+    <div class="weather-card">
+      <h1>🌦️ Weather Application</h1>
 
-  <div class="search-box">
-    <input type="text" id="city-input" placeholder="Search city..." />
-    <button id="search-btn">Search</button>
+      <div class="search-box">
+        <input type="text" id="city-input" placeholder="Search city..." />
+        <button id="search-btn">Search</button>
+      </div>
+
+      <p id="location-note">(Auto-locating...)</p>
+      <div id="weather-info"></div>
+      <canvas id="forecast-chart"></canvas>
+      <div id="map"></div>
+    </div>
   </div>
 
-  <p id="location-note">(Auto-locating...)</p>
-  <div id="weather-info"></div>
-  <canvas id="forecast-chart"></canvas>
-  <div id="map"></div>
-</div>
-
-
-  <!-- Footer -->
   <footer>
     <p>© 2025 Somesh Singh. Built with 💻 + 📊 + ☕</p>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js"></script>
+  <!-- 🔸 Embedded JavaScript -->
+  <script>
+    const apiKey = "c61f4d5b368563370f04a1258151f6c0"; 
+    const wInfo = document.getElementById("weather-info");
+    const locNote = document.getElementById("location-note");
+    const ctx = document.getElementById("forecast-chart").getContext("2d");
+    let map, marker;
+
+    function initMap(lat, lon, city) {
+      if (!map) {
+        map = L.map("map").setView([lat, lon], 8);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+      } else map.setView([lat, lon], 8);
+
+      if (marker) marker.setLatLng([lat, lon]);
+      else marker = L.marker([lat, lon]).addTo(map).bindPopup(city).openPopup();
+    }
+
+    async function fetchWeather(lat, lon, city = null) {
+      const base = "https://api.openweathermap.org/data/2.5/";
+      const currentURL = city
+        ? `${base}weather?q=${city}&appid=${apiKey}&units=metric`
+        : `${base}weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+      const forecastURL = city
+        ? `${base}forecast?q=${city}&appid=${apiKey}&units=metric`
+        : `${base}forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+      try {
+        const [currRes, forecastRes] = await Promise.all([
+          fetch(currentURL), fetch(forecastURL)
+        ]);
+        const currData = await currRes.json();
+        const forecastData = await forecastRes.json();
+
+        updateUI(currData);
+        drawForecast(forecastData);
+        initMap(currData.coord.lat, currData.coord.lon, currData.name);
+        updateBackground(currData.weather[0].description);
+      } catch (e) {
+        alert("City not found or API error");
+      }
+    }
+
+    function updateUI(data) {
+      const d = new Date();
+      wInfo.innerHTML = `
+        <h2>${data.name}, ${d.toLocaleDateString()}</h2>
+        <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" />
+        <p>🌡️ ${Math.round(data.main.temp)}°C</p>
+        <p>🌤️ ${data.weather[0].description}</p>
+        <p>💨 Wind: ${data.wind.speed} m/s</p>`;
+    }
+
+    function drawForecast(data) {
+      const daily = {};
+      data.list.forEach(item => {
+        const day = item.dt_txt.slice(0, 10);
+        if (!daily[day]) daily[day] = [];
+        daily[day].push(item.main.temp);
+      });
+      const labels = Object.keys(daily).slice(0, 5);
+      const temps = labels.map(d => {
+        const t = daily[d];
+        return {
+          max: Math.max(...t),
+          min: Math.min(...t)
+        };
+      });
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            { label: "Max Temp", data: temps.map(t => t.max), borderColor: "#e74c3c" },
+            { label: "Min Temp", data: temps.map(t => t.min), borderColor: "#3498db" }
+          ]
+        }
+      });
+    }
+
+    function updateBackground(desc) {
+      const bg = desc.toLowerCase();
+      if (bg.includes("cloud")) {
+        document.body.style.background = "linear-gradient(to top, #bdc3c7, #2c3e50)";
+      } else if (bg.includes("rain")) {
+        document.body.style.background = "linear-gradient(to top, #4e54c8, #8f94fb)";
+      } else if (bg.includes("clear")) {
+        document.body.style.background = "linear-gradient(to top, #56ccf2, #2f80ed)";
+      } else if (bg.includes("snow")) {
+        document.body.style.background = "linear-gradient(to top, #e0eafc, #cfdef3)";
+      } else {
+        document.body.style.background = "linear-gradient(135deg, #2980b9, #6dd5fa)";
+      }
+    }
+
+    document.getElementById("search-btn").onclick = () => {
+      const city = document.getElementById("city-input").value.trim();
+      if (city) fetchWeather(null, null, city);
+    };
+
+    window.onload = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          locNote.textContent = "";
+          fetchWeather(pos.coords.latitude, pos.coords.longitude);
+        }, () => locNote.textContent = "(Could not detect location)");
+      } else {
+        locNote.textContent = "(Geolocation not supported)";
+      }
+    };
+  </script>
 </body>
 </html>
