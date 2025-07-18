@@ -133,19 +133,13 @@ canvas#forecast-chart {
   border: 1px solid #ccc;
 }
 
-/* Footer */
 footer {
-  text-align: center;
-  margin-top: 30px;
-  padding: 10px;
-  font-size: 14px;
-  color: #555;
-  background: rgba(255, 255, 255, 0.1);
-  border-top: 1px solid #ddd;
-  border-radius: 0 0 15px 15px;
-  width: 100%;
-  z-index: 2;
-}
+        text-align: center;
+        padding: 1.2rem;
+        background: #1f2937;
+        color: #cbd5e1;
+        font-size: 0.95rem;
+      }
 
 /* Responsive */
 @media screen and (max-width: 480px) {
