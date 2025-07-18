@@ -68,8 +68,12 @@ Contributions are welcome! Follow these steps to contribute:
 ## License 📜
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+## 🌐 Live Demo
+
+🔗 [Portfolio](https://someshsingh-7251.github.io/Weather-Application/)
 
 ---
+
 ## Contact
 
 For any queries or support, feel free to reach out:
@@ -81,3 +85,9 @@ For any queries or support, feel free to reach out:
 ---
 
 *Note: Feel Free to Contact at Instagram: [Somesh Chinku Singh](https://www.instagram.com/officialsomeshchinkusingh?igsh=MW1vdTZwbDdmMTZxbw==)*
+
+---
+
+## 🧑‍💻 Author
+
+Developed with ❤️ by [Somesh Singh](https://www.linkedin.com/in/someshsingh-2aa796229/)
