@@ -1,47 +1,30 @@
-<head>
-	<link rel="stylesheet" href="style2.css">
-	<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-	<link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-	<link rel="stylesheet" href=
-"https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
-	<title>SCS App</title>
-</head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global Weather + Forecast + Map</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="weather-card">
+        <h1>🌦️ Weather Application</h1>
+        <input type="text" id="city-input" placeholder="Search city name..." />
+        <button id="search-btn">Search</button>
+        <p id="location-note">(Detecting location...)</p>
+        <div id="weather-info"></div>
+        <canvas id="forecast-chart"></canvas>
+        <div id="map" style="height: 300px; margin-top: 15px"></div>
+      </div>
+    </div>
 
-<body>
-	<div class="container">
-		<div class="weather-card">
-			<h1 style="color: green;">
-				Somesh Singh
-			</h1>
-			<h3>
-				Weather App
-			</h3>
-			<input type="text" id="city-input"
-				placeholder="Enter city name">
-			<button id="city-input-btn"
-					onclick="weatherFn($('#city-input').val())">
-					Get Weather
-			</button>
-			<div id="weather-info"
-				class="animate__animated animate__fadeIn">
-				<h3 id="city-name"></h3>
-				<p id="date"></p>
-				<img id="weather-icon" src="" alt="Weather Icon">
-				<p id="temperature"></p>
-				<p id="description"></p>
-				<p id="wind-speed"></p>
-			</div>
-		</div>
-	</div>
-	<script src=
-"https://code.jquery.com/jquery-3.6.0.min.js">
-	</script>
-	<script src=
-"https://momentjs.com/downloads/moment.min.js">
-	</script>
-	<script src="script2.js"></script>
-</body>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>
