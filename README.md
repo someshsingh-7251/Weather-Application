@@ -70,7 +70,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## 🌐 Live Demo
 
-🔗 [Portfolio](https://someshsingh-7251.github.io/Weather-Application/)
+🔗 [Weather Application 🌦️](https://someshsingh-7251.github.io/Weather-Application/)
 
 ---
 
