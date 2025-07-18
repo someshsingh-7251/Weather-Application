@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather Application</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="cloud" style="top: 80px"></div>
-    <div class="cloud" style="top: 150px"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Final Year Weather App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-    <div class="container">
-      <div class="weather-card">
-        <h1>🌦️ Weather App</h1>
-        <input type="text" id="city-input" placeholder="Search city..." />
-        <button id="search-btn">Search</button>
-        <p id="location-note">(Auto-locating...)</p>
-        <div id="weather-info"></div>
-        <canvas id="forecast-chart"></canvas>
-        <div id="map" style="height: 300px; margin-top: 15px"></div>
-      </div>
+  <!-- Cloud Decorations -->
+  <div class="cloud" style="top: 80px;"></div>
+  <div class="cloud" style="top: 150px;"></div>
+
+  <!-- App UI -->
+  <div class="container">
+    <div class="weather-card">
+      <h1>🌦️ Weather Application</h1>
+      <input type="text" id="city-input" placeholder="Search city..." />
+      <button id="search-btn">Search</button>
+      <p id="location-note">(Auto-locating...)</p>
+      <div id="weather-info"></div>
+      <canvas id="forecast-chart"></canvas>
+      <div id="map"></div>
     </div>
+  </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
-    <footer>
-      <p>© 2025 Somesh Singh. Built with 💻 + 📊 + ☕</p>
-    </footer>
-  </body>
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Somesh Singh. Built with 💻 + 📊 + ☕</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
 </html>
