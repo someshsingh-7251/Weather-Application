@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Global Weather + Forecast + Map</title>
+    <title>Weather Application</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
@@ -11,22 +11,26 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="cloud" style="top: 80px"></div>
+    <div class="cloud" style="top: 150px"></div>
+
     <div class="container">
       <div class="weather-card">
-        <h1>🌦️ Weather Application</h1>
-        <input type="text" id="city-input" placeholder="Search city name..." />
+        <h1>🌦️ Weather App</h1>
+        <input type="text" id="city-input" placeholder="Search city..." />
         <button id="search-btn">Search</button>
-        <p id="location-note">(Detecting location...)</p>
+        <p id="location-note">(Auto-locating...)</p>
         <div id="weather-info"></div>
         <canvas id="forecast-chart"></canvas>
         <div id="map" style="height: 300px; margin-top: 15px"></div>
       </div>
     </div>
-    <footer>
-      <p>© 2025 Somesh Singh. Built with 💻 + 📊 + ☕</p>
-    </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
+    <footer>
+      <p>© 2025 Somesh Singh. Built with 💻 + 📊 + ☕</p>
+    </footer>
   </body>
 </html>
