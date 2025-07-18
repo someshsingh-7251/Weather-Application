@@ -1,3 +1,4 @@
+/* Reset & Global */
 * {
   margin: 0;
   padding: 0;
@@ -5,83 +6,20 @@
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
-  background: linear-gradient(135deg, #74ebd5, #acb6e5);
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, #74ebd5, #ACB6E5);
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding: 20px;
   overflow: hidden;
   position: relative;
   transition: background 1s ease-in-out;
 }
 
-.container {
-  max-width: 400px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 15px;
-  padding: 25px 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  z-index: 2;
-}
-
-.weather-card {
-  text-align: center;
-}
-
-input,
-button {
-  padding: 10px;
-  margin: 10px 5px;
-  width: 90%;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-button {
-  background-color: #2ecc71;
-  color: white;
-  cursor: pointer;
-  border: none;
-}
-
-button:hover {
-  background-color: #27ae60;
-}
-
-#location-note {
-  font-size: 12px;
-  color: gray;
-}
-
-#weather-info img {
-  width: 70px;
-  height: 70px;
-}
-
-canvas {
-  margin-top: 20px;
-  width: 100% !important;
-}
-footer {
-  text-align: center;
-  margin-top: 30px;
-  padding: 10px;
-  font-size: 14px;
-  color: #888;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-top: 1px solid #ccc;
-  border-radius: 0 0 15px 15px;
-}
-
-#map {
-  height: 300px;
-  border-radius: 10px;
-  margin-top: 15px;
-}
-
+/* Cloud Animation */
 .cloud {
   position: absolute;
   width: 200px;
@@ -94,10 +32,132 @@ footer {
 }
 
 @keyframes floatCloud {
-  0% {
-    left: -250px;
+  0% { left: -250px; }
+  100% { left: 100%; }
+}
+
+/* Container for Weather App */
+.container {
+  max-width: 400px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 25px 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  text-align: center;
+}
+
+/* Heading */
+.weather-card h1 {
+  font-size: 26px;
+  color: #3498db;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Input and Button */
+input#city-input {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  text-align: center;
+  transition: 0.3s;
+}
+
+input#city-input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+button#search-btn {
+  width: 90%;
+  padding: 10px;
+  background: #2ecc71;
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button#search-btn:hover {
+  background: #27ae60;
+}
+
+/* Location Note */
+#location-note {
+  font-size: 12px;
+  color: gray;
+  margin-top: 5px;
+}
+
+/* Weather Info Block */
+#weather-info {
+  margin-top: 20px;
+}
+
+#weather-info h2 {
+  font-size: 20px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+#weather-info p {
+  font-size: 14px;
+  margin: 5px 0;
+  color: #444;
+}
+
+#weather-info img {
+  width: 70px;
+  height: 70px;
+}
+
+/* Chart & Map Styling */
+canvas#forecast-chart {
+  margin-top: 20px;
+  width: 100% !important;
+}
+
+#map {
+  height: 300px;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 30px;
+  padding: 10px;
+  font-size: 14px;
+  color: #555;
+  background: rgba(255, 255, 255, 0.1);
+  border-top: 1px solid #ddd;
+  border-radius: 0 0 15px 15px;
+  width: 100%;
+  z-index: 2;
+}
+
+/* Responsive */
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 15px 10px;
   }
-  100% {
-    left: 100%;
+
+  #map {
+    height: 250px;
+  }
+
+  canvas#forecast-chart {
+    height: 200px !important;
   }
 }
