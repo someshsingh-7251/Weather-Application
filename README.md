@@ -1,6 +1,6 @@
 ![Project views](https://komarev.com/ghpvc/?username=someshsingh-7251)
 
-# Weather Application 🌦️
+# Weather Website 🌦️
 
 A user-friendly weather application that fetches and displays real-time weather information for any location. Built using modern web technologies, it provides current weather conditions, forecasts, and other essential weather details in an intuitive interface.
 
